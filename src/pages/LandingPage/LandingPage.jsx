@@ -54,7 +54,7 @@ export default function LandingPage({ user, setUser }) {
             <div>
               <h1>Workplace Accommodation Form</h1>
             </div>
-            {submission ? (
+            {Object.keys(submission).length > 0 ? (
               <div>Thank you for your submission</div>
             ) : (
               <div>
