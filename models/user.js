@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
-const SALT_ROUNDS = 6; //the amount of rounds 
+const SALT_ROUNDS = 6; //the amount of rounds
 
 const userSchema = new Schema(
   {
     name: { type: String, required: true },
+    is_hr: { type: Boolean, required: true },
     email: {
       type: String,
       unique: true, //creates a unique index in the database which will trigger an error if validated

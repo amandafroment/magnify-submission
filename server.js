@@ -18,6 +18,8 @@ app.use(express.static(path.join(__dirname, "build")));
 app.use(require("./config/checkToken"));
 
 app.use("/api/users", require("./routes/api/users"));
+app.use("/api/forms", require("./routes/api/forms"));
+app.use("", require("./routes/api/home"));
 
 app.get("/*", function (req, res) {
   // currentdirectory/build/index.html

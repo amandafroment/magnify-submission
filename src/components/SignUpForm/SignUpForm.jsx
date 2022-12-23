@@ -4,6 +4,7 @@ import { signUp } from "../../utilities/users-service";
 export class SignUpForm extends Component {
   state = {
     name: "",
+    is_hr: false,
     email: "",
     password: "",
     confirm: "",
@@ -14,6 +15,13 @@ export class SignUpForm extends Component {
     //it will take our existing state and identify the differences
     this.setState({
       [e.target.name]: e.target.value, //the name key will be updated, and doesnt touch anything else in our state object
+      error: "",
+    });
+  };
+
+  handleCheckChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.checked,
       error: "",
     });
   };
@@ -49,6 +57,13 @@ export class SignUpForm extends Component {
               onChange={this.handleChange}
               required
             />
+            <label>Are you Human Resources?</label>
+            <input
+              type="checkbox"
+              name="is_hr"
+              value={this.state.is_hr}
+              onChange={this.handleCheckChange}
+            ></input>
             <label>Email</label>
             <input
               type="email"

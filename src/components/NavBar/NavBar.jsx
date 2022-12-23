@@ -12,10 +12,6 @@ export default function NavBar({ user, setUser }) {
 
   return (
     <nav>
-      <Link to="/newpage">New Page</Link>
-      &nbsp; | &nbsp;
-      <Link to="/newpage/details">New Page Details</Link>
-      &nbsp; | &nbsp;
       {user && <span>Welcome, {user.name}</span>}
       &nbsp;{" "}
       <Link to="" onClick={handleLogOut}>
