@@ -2,12 +2,7 @@ import { useState } from "react";
 import * as formsAPI from "../../utilities/forms-api";
 import { useNavigate } from "react-router-dom";
 
-export default function LandingPage({
-  user,
-  setUser,
-  submissions,
-  setSubmissions,
-}) {
+export default function LandingPage({ user, submissions, setSubmissions }) {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState({
@@ -18,6 +13,8 @@ export default function LandingPage({
     email: "",
     accommodation_requests: "",
   });
+
+  const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
 
@@ -38,6 +35,16 @@ export default function LandingPage({
     }
   }
 
+  const handleSearchChange = (e) => {
+    setSearch(e.target.value);
+  };
+
+  if (search.length > 0) {
+    submissions.filter((submission) => {
+      return submission.name.match(search);
+    });
+  }
+
   return (
     <>
       <div>
@@ -46,6 +53,12 @@ export default function LandingPage({
             <div>
               <h1>Landing Page - HR </h1>
             </div>
+            <input
+              type="text"
+              value={search}
+              placeholder="Search employee accommodations..."
+              onChange={handleSearchChange}
+            />
           </>
         ) : (
           <>

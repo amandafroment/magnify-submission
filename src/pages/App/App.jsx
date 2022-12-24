@@ -34,7 +34,6 @@ export default function App() {
                 element={
                   <LandingPage
                     user={user}
-                    setUser={setUser}
                     submissions={submissions}
                     setSubmissions={setSubmissions}
                   />

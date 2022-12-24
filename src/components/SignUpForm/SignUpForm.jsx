@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { signUp } from "../../utilities/users-service";
+import "./SignUpForm.css";
 
 export class SignUpForm extends Component {
   state = {
@@ -48,7 +49,11 @@ export class SignUpForm extends Component {
     return (
       <div>
         <div className="form-container">
-          <form autoComplete="off" onSubmit={this.handleSubmit}>
+          <form
+            autoComplete="off"
+            onSubmit={this.handleSubmit}
+            className="form"
+          >
             <label>Name</label>
             <input
               type="text"
