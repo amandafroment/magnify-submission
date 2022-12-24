@@ -11,15 +11,15 @@ export default function AuthPage({ setUser }) {
       <h1>AuthPage</h1>
       <div>
         {showLogin ? (
-          <SignUpForm setUser={setUser} />
-        ) : (
           <LoginForm setUser={setUser} />
+        ) : (
+          <SignUpForm setUser={setUser} />
         )}
       </div>
       <p>Or</p>
       <div className="changing-sign-in-button">
         <h3 onClick={() => setShowLogin(!showLogin)}>
-          {showLogin ? "LOG IN" : "SIGN UP"}
+          {showLogin ? "SIGN UP" : "LOG IN"}
         </h3>
       </div>
     </>
