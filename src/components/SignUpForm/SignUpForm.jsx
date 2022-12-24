@@ -47,59 +47,66 @@ export class SignUpForm extends Component {
   render() {
     const disable = this.state.password !== this.state.confirm;
     return (
-      <div>
-        <div className="form-container">
-          <form
-            autoComplete="off"
-            onSubmit={this.handleSubmit}
-            className="form"
-          >
-            <label>Name</label>
-            <input
-              type="text"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
-              required
-            />
-            <label>Are you Human Resources?</label>
-            <input
-              type="checkbox"
-              name="is_hr"
-              value={this.state.is_hr}
-              onChange={this.handleCheckChange}
-            ></input>
-            <label>Email</label>
-            <input
-              type="email"
-              name="email"
-              value={this.state.email}
-              onChange={this.handleChange}
-              required
-            />
-            <label>Password</label>
-            <input
-              type="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              required
-            />
-            <label>Confirm</label>
-            <input
-              type="password"
-              name="confirm"
-              value={this.state.confirm}
-              onChange={this.handleChange}
-              required
-            />
-            <button type="submit" disabled={disable}>
-              SIGN UP
-            </button>
-          </form>
+      <>
+        <div>
+          <div className="signup-form-container">
+            <form
+              autoComplete="off"
+              onSubmit={this.handleSubmit}
+              className="signup-form"
+            >
+              <label>NAME</label>
+              <input
+                type="text"
+                name="name"
+                value={this.state.name}
+                onChange={this.handleChange}
+                required
+              />
+              <label>PLEASE CHECK IF YOU ARE HR</label>
+              <input
+                type="checkbox"
+                name="is_hr"
+                value={this.state.is_hr}
+                onChange={this.handleCheckChange}
+              ></input>
+              <label>EMAIL</label>
+              <input
+                type="email"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                required
+              />
+              <label>PASSWORD</label>
+              <input
+                type="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                required
+              />
+              <label>CONFIRM PASSWORD</label>
+              <input
+                type="password"
+                name="confirm"
+                value={this.state.confirm}
+                onChange={this.handleChange}
+                required
+              />
+              <button type="submit" disabled={disable}>
+                SIGN UP
+              </button>
+            </form>
+          </div>
+          {this.state.error ? (
+            <p className="error-message">&nbsp;{this.state.error}</p>
+          ) : (
+            <span></span>
+          )}
         </div>
-        <p className="error-message">&nbsp;{this.state.error}</p>
-      </div>
+        <footer></footer>
+      </>
     );
   }
 }

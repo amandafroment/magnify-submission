@@ -3,33 +3,44 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100wh;
+  width: 100vw;
   height: 100vh;
   padding: 50px;
 }
 
-.AuthPage > h1 {
-  margin: 5px;
+.logo {
+  height: 10%;
+}
+
+.AuthPage > h2 {
+  margin-top: 30px;
+  margin-bottom: 0px;
 }
 
 .AuthPageFormsContainer {
   display: flex;
-  width: 60wh;
+  flex-direction: column;
+  align-items: center;
+  width: 60vw;
   height: 50vh;
+  margin-top: 0px;
 }
 
 button {
   font-size: 13px;
-  margin-top: 10px;
   width: 80px;
   height: 25px;
   background-color: white;
-  border: 2px solid rgb(144, 151, 255);
+  border: 2px solid #207178;
 }
 
 button:hover {
   cursor: pointer;
   color: white;
   font-weight: 700;
-  background-color: rgb(144, 151, 255);
+  background-color: #207178;
+}
+
+footer {
+  height: 200px;
 }
