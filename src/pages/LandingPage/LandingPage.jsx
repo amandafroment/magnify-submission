@@ -6,6 +6,8 @@ import "./LandingPage.css";
 export default function LandingPage({ user, submissions, setSubmissions }) {
   const [error, setError] = useState("");
 
+  const [isFilePicked, setIsFilePicked] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     employee_id: "",
@@ -13,24 +15,37 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
     employment_status: "",
     email: "",
     accommodation_requests: "",
+    file: null,
   });
 
   const [search, setSearch] = useState("");
-
-  const navigate = useNavigate();
 
   function handleChangeForm(e) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     setError("");
   }
 
+  function handleFileChange(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    setIsFilePicked(true);
+  }
+
   async function handleSubmitForm(e) {
     e.preventDefault();
     try {
-      let form = await formsAPI.createForm(formData);
-      setFormData(formData);
+      const data = new FormData();
+      data.append("file", formData.file);
+      data.append("name", formData.name);
+      data.append("employee_id", formData.employee_id);
+      data.append("department", formData.department);
+      data.append("employment_status", formData.employment_status);
+      data.append("email", formData.email);
+      data.append("accommodation_requests", formData.accommodation_requests);
+      let response = await formsAPI.createForm(data);
+
       console.log("data submitted");
-      setSubmissions(...submissions, formData);
+      console.log("submission: ", submissions[0], response);
+      setSubmissions([...submissions, response]);
     } catch (err) {
       setError("Form Submission Failed - Try Again");
     }
@@ -75,7 +90,7 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.name}
                     name="name"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
                   <label>EMPLOYEE ID: </label>
                   <input
@@ -83,7 +98,7 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.employee_id}
                     name="employee_id"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
                   <label>DEPARTMENT: </label>
                   <input
@@ -91,7 +106,7 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.department}
                     name="department"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
                   <label>EMPLOYMENT STATUS: </label>
                   <input
@@ -99,7 +114,7 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.employment_status}
                     name="employment_status"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
                   <label>EMAIL: </label>
                   <input
@@ -107,7 +122,7 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.email}
                     name="email"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
                   <label>ACCOMMODATION REQUEST: </label>
                   <input
@@ -115,8 +130,9 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     value={formData.accommodation_requests}
                     name="accommodation_requests"
                     onChange={handleChangeForm}
-                    // required
+                    required
                   />
+                  <input type="file" name="file" onChange={handleFileChange} />
                   <button type="submit" className="form-submit">
                     SUBMIT
                   </button>
@@ -137,8 +153,6 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                   <span>{submission.email}</span>
                   <span>{submission.accommodation_requests}</span>
                 </div>
-
-                <br></br>
               </div>
             </>
           );

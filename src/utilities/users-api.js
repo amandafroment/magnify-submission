@@ -2,11 +2,11 @@ import sendRequest from "./send-request";
 const BASE_URL = "/api/users";
 
 export async function signUp(userData) {
-  return sendRequest(BASE_URL, "POST", userData);
+  return sendRequest(BASE_URL, "POST", JSON.stringify(userData));
 }
 
 export async function login(userData) {
-  return sendRequest(`${BASE_URL}/login`, "POST", userData);
+  return sendRequest(`${BASE_URL}/login`, "POST", JSON.stringify(userData));
 }
 
 export function checkToken() {

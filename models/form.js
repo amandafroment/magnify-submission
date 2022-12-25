@@ -13,6 +13,10 @@ const formSchema = new Schema({
     ref: "User",
     require,
   },
+  file: {
+    data: Buffer,
+    contentType: String,
+  },
 });
 
 module.exports = mongoose.model("Form", formSchema);

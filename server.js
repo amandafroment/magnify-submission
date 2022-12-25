@@ -21,11 +21,11 @@ app.use("/api/users", require("./routes/api/users"));
 app.use("/api/forms", require("./routes/api/forms"));
 app.use("", require("./routes/api/home"));
 
-app.get("/*", function (req, res) {
+app.get("/*", function(req, res) {
   // currentdirectory/build/index.html
   res.sendFile(path.join(__dirname, "build", "index.html"));
 });
 
-app.listen(port, function () {
+app.listen(port, function() {
   console.log(`Express app running on port ${port}`);
 });
