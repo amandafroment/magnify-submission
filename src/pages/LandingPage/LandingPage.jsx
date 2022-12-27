@@ -1,12 +1,39 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as formsAPI from "../../utilities/forms-api";
 import { useNavigate } from "react-router-dom";
 import "./LandingPage.css";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableContainer from "@material-ui/core/TableContainer";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import SearchBar from "material-ui-search-bar";
 
 export default function LandingPage({ user, submissions, setSubmissions }) {
   const [error, setError] = useState("");
 
   const [isFilePicked, setIsFilePicked] = useState(false);
+  const [rows, setRows] = useState(submissions);
+  const [searched, setSearched] = useState("");
+
+  useEffect(() => {
+    // Update the document title using the browser API
+    setRows(submissions);
+  }, [submissions]);
+
+  const requestSearch = (searchedVal) => {
+    const filteredRows = submissions.filter((row) => {
+      return row.name.toLowerCase().includes(searchedVal.toLowerCase());
+    });
+    setRows(filteredRows);
+  };
+
+  const cancelSearch = () => {
+    setSearched("");
+    requestSearch(searched);
+  };
 
   const [formData, setFormData] = useState({
     name: "",
@@ -69,12 +96,12 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
             <div>
               <h1>Landing Page - HR </h1>
             </div>
-            <input
+            {/* <input
               type="text"
               value={search}
               placeholder="Search employee accommodations..."
               onChange={handleSearchChange}
-            />
+            /> */}
           </>
         ) : (
           <>
@@ -132,7 +159,12 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
                     onChange={handleChangeForm}
                     required
                   />
-                  <input type="file" name="file" onChange={handleFileChange} />
+                  <input
+                    type="file"
+                    name="file"
+                    accept="application/pdf"
+                    onChange={handleFileChange}
+                  />
                   <button type="submit" className="form-submit">
                     SUBMIT
                   </button>
@@ -142,21 +174,45 @@ export default function LandingPage({ user, submissions, setSubmissions }) {
           </>
         )}
 
-        {submissions.map((submission, idx) => {
-          return (
-            <>
-              <div className="submission-container">
-                <div className="submission-card">
-                  <span>{submission.name}</span>
-                  <span>{submission.employee_id}</span>
-                  <span>{submission.employment_status}</span>
-                  <span>{submission.email}</span>
-                  <span>{submission.accommodation_requests}</span>
-                </div>
-              </div>
-            </>
-          );
-        })}
+        <Paper>
+          <SearchBar
+            value={searched}
+            onChange={(searchVal) => requestSearch(searchVal)}
+            onCancelSearch={() => cancelSearch()}
+          />
+          <TableContainer>
+            <Table className="table" aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Name</TableCell>
+                  <TableCell align="right">Employee ID</TableCell>
+                  <TableCell align="right">Department</TableCell>
+                  <TableCell align="right">Employment Status</TableCell>
+                  <TableCell align="right">Email</TableCell>
+                  <TableCell align="right">Accommodation Requests</TableCell>
+                  <TableCell align="right">Uploaded File</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow key={row._id}>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell align="right">{row.employee_id}</TableCell>
+                    <TableCell align="right">{row.department}</TableCell>
+                    <TableCell align="right">{row.employment_status}</TableCell>
+                    <TableCell align="right">{row.email}</TableCell>
+                    <TableCell align="right">
+                      {row.accommodation_requests}
+                    </TableCell>
+                    <TableCell align="right">{row.fileName}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
       </div>
     </>
   );

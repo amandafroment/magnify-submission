@@ -17,6 +17,7 @@ const formSchema = new Schema({
     data: Buffer,
     contentType: String,
   },
+  fileName: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Form", formSchema);
