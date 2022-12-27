@@ -12,6 +12,11 @@
   height: 60vh;
 }
 
+.HR-header {
+  text-align: center;
+  margin: 50px 0px;
+}
+
 .header {
   margin: 10px 5px 5px 5px;
 }
@@ -50,6 +55,16 @@
   border: 1px solid #207178;
 }
 
+.workplace-form > .file-input {
+  font-family: Arial, Helvetica, sans-serif;
+  margin-top: 10px;
+  width: 200px;
+}
+
+.workplace-form > .file-input:hover {
+  font-weight: bold;
+}
+
 .form-submit {
   font-size: 15px;
   margin: 10px;
@@ -72,10 +87,12 @@
   align-items: center;
   height: 40vh;
   width: 100vw;
-  margin-top: 25px;
-  background-color: orange;
+  margin-top: 50px;
 }
 
 .table {
   min-width: 650;
+}
+.search-bar {
+  width: 50vw;
 }

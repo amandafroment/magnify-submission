@@ -23,13 +23,15 @@ async function createForm(req, res) {
       body = JSON.parse(JSON.stringify(req.body));
       console.log(req.file);
       body.user = req.user._id;
-      body.fileName = req.file.originalname;
-      body.file = {
-        data: fs.readFileSync(
-          path.join(__dirname + "/../../public/uploads/" + req.file.filename)
-        ),
-        contentType: "application/pdf",
-      };
+      if (req.file) {
+        body.fileName = req.file.originalname;
+        body.file = {
+          data: fs.readFileSync(
+            path.join(__dirname + "/../../public/uploads/" + req.file.filename)
+          ),
+          contentType: "application/pdf",
+        };
+      }
       // body.file = req.user._id;
       const form = await Form.create(body);
       res.setHeader("Content-Type", "application/json");
